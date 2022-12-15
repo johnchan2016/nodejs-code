@@ -1,8 +1,14 @@
 node {
 	def app
+    def IMAGETAG
+    def scmVars
+    def gitCommit
+    def today = new Date()
 
     stage('Clone repository') {     
-        checkout scm
+        scmVars = checkout scm
+
+        gitCommit = scmVars.GIT_COMMIT.substring(0, 10);
     }
 
     stage('Build image') {  
@@ -17,13 +23,17 @@ node {
 
     stage('Push image') {        
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                app.push("${env.BUILD_NUMBER}")
-								app.push("latest")
+
+            IMAGETAG = "${today.format('yyyyMMdd')}-${APPENV}-${gitCommit}"
+            app.push("${IMAGETAG}")
+			app.push("latest")
+
+            echo "IMAGETAG: ${IMAGETAG}"
         }
     }
         
-    stage('Trigger ManifestUpdate') {
-        echo "triggering updatemanifestjob"
-        build job: 'UpdateNodeManifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
-    }
+    // stage('Trigger ManifestUpdate') {
+    //     echo "triggering updatemanifestjob"
+    //     build job: 'UpdateNodeManifest', parameters: [string(name: 'DOCKERTAG', value: ${IMAGETAG})]
+    // }
 }
