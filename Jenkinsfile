@@ -32,8 +32,8 @@ node {
         }
     }
         
-    // stage('Trigger ManifestUpdate') {
-    //     echo "triggering updatemanifestjob"
-    //     build job: 'UpdateNodeManifest', parameters: [string(name: 'DOCKERTAG', value: ${IMAGETAG})]
-    // }
+    stage('Trigger ManifestUpdate') {
+        echo "triggering updatemanifestjob"
+        build job: 'UpdateNodeManifest', parameters: [string(name: 'DOCKERTAG', value: ${IMAGETAG})]
+    }
 }
