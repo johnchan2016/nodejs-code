@@ -1,5 +1,5 @@
 node {
-	def app
+    def app
     def IMAGETAG
     def scmVars
     def gitCommit
@@ -26,9 +26,7 @@ node {
 
             IMAGETAG = "${today.format('yyyyMMdd')}-${APPENV}-${gitCommit}"
             app.push("${IMAGETAG}")
-			app.push("latest")
-
-            echo "IMAGETAG: ${IMAGETAG}"
+	    app.push("latest")
         }
     }
         
