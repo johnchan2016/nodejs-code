@@ -34,6 +34,6 @@ node {
         
     stage('Trigger ManifestUpdate') {
         echo "triggering updatemanifestjob"
-        build job: 'UpdateNodeManifest', parameters: [string(name: 'DOCKERTAG', value: "${IMAGETAG}")]
+        build job: 'UpdateNodeManifest', parameters: [string(name: 'DOCKERTAG', value: "${IMAGETAG}"), string(name: 'APPENV', value: "${APPENV}")]
     }
 }
