@@ -45,7 +45,7 @@ node {
         
     stage('Trigger ManifestUpdate') {
         echo "triggering updatemanifestjob"
-        build job: 'nodejs-update-manifest-handle-multibranch', 
+        build job: 'nodejs-update-manifest', 
         parameters: [
             string(name: 'DOCKERTAG', value: "${IMAGETAG}"), 
             string(name: 'APPENV', value: "${APPENV}"),
