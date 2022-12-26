@@ -3,7 +3,7 @@ node {
     def IMAGETAG
     def scmVars
     def gitCommit
-    def today = new Date().format('yyyyMMdd'T'HH:mm:ss')
+    def today = new Date().format('yyyyMMddHH:mm:ss')
     def APPENV
     def curBranch
 
