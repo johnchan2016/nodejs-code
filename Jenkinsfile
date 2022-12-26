@@ -25,7 +25,7 @@ node {
     }
 
         stage('Build image') {  
-       app = docker.build("myhk2009/nodetest")
+       app = docker.build("myhk2009/nodetest", "--no-cache",)
     }
 
     stage('Test image') { 
