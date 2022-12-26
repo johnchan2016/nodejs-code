@@ -52,4 +52,10 @@ node {
             string(name: 'BRANCHNAME', value: "${curBranch}")
             ]
     }
+
+    stage ('Send Email for approval') {
+        emailext body: "${DEFAULT_CONTENT}",
+        recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+        subject: "${DEFAULT_SUBJECT}"
+    }
 }
