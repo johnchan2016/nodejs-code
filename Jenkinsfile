@@ -3,7 +3,7 @@ node {
     def IMAGETAG
     def scmVars
     def gitCommit
-    def today = new Date()
+    def today = new Date().format('yyyyMMdd'T'HH:mm:ss')
     def APPENV
     def curBranch
 
@@ -37,9 +37,10 @@ node {
     stage('Push image') {        
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
 
-            IMAGETAG = "${today.format('yyyyMMdd')}-${APPENV}-${gitCommit}"
+
+            IMAGETAG = "${today}-${APPENV}-${gitCommit}"
             app.push("${IMAGETAG}")
-	    app.push("latest")
+	        app.push("latest")
         }
     }
         
